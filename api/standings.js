@@ -1,11 +1,13 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
+  res.setHeader('Cache-Control', 'no-store, max-age=0');
+
   const leagueId = process.env.ESPN_LEAGUE_ID;
   const season = process.env.ESPN_SEASON || '2027';
   const espnS2 = process.env.ESPN_S2 || '';
   const swid = process.env.ESPN_SWID || '';
 
   if (!leagueId) {
-    return res.status(500).json({ error: 'Missing ESPN_LEAGUE_ID environment variable' });
+    return res.status(500).json({ error: 'Missing ESPN_LEAGUE_ID in Vercel Environment Variables' });
   }
 
   const url = `https://lm-api-reads.fantasy.espn.com/apis/v3/games/fba/seasons/${season}/segments/0/leagues/${leagueId}?view=mTeam&view=mStandings`;
@@ -16,43 +18,40 @@ export default async function handler(req, res) {
 
   try {
     const response = await fetch(url, { headers });
+    const text = await response.text();
     if (!response.ok) {
-      return res.status(response.status).json({ error: `ESPN API returned ${response.status}` });
+      return res.status(response.status).json({
+        error: `ESPN returned HTTP ${response.status}`,
+        season,
+        hasCookies: Boolean(espnS2 && swid),
+        preview: text.slice(0, 200)
+      });
     }
-    const data = await response.json();
-    const teams = data.teams || [];
 
+    const data = JSON.parse(text);
     const standings = [];
-    for (const item of teams) {
-      const { id, abbrev, playoffSeed, rankCalculatedFinal, record } = item;
-      const teamName = item['name'] || `${item['location'] || ''} ${item['nickname'] || ''}`.trim() || abbrev || `Team ${id}`;
-      const overall = (record && record.overall) || {};
-      const wins = overall.wins ?? 0;
-      const losses = overall.losses ?? 0;
-      const ties = overall.ties ?? 0;
+    for (const item of data.teams || []) {
+      const overall = (item.record && item.record.overall) || {};
       const pct = typeof overall.percentage === 'number'
         ? overall.percentage.toFixed(3).replace(/^0/, '')
         : '.000';
-
       standings.push({
-        rank: rankCalculatedFinal || playoffSeed || 99,
-        team_name: teamName,
-        wins,
-        losses,
-        ties,
+        rank: item.rankCalculatedFinal || item.playoffSeed || 99,
+        team_name: item['name'] || item.abbrev || `Team ${item.id}`,
+        wins: overall.wins ?? 0,
+        losses: overall.losses ?? 0,
+        ties: overall.ties ?? 0,
         win_percentage: pct
       });
     }
 
     standings.sort((a, b) => a.rank - b.rank);
-
-    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=300');
     return res.status(200).json({
+      source: 'espn-live',
       updated_at: new Date().toISOString(),
-      scoring_period: data.scoringPeriodId || null,
       standings
     });
   } catch (err) {
-    return res.status(500).json({ error: 'Failed to fetch ESPN standings', detail: err.message });
+    return res.status(500).json({ error: 'Request failed', detail: err.message });
   }
-}
+};
