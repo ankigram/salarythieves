@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="zh-HK">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="薪水小偷幻想籃球聯賽：戰力排名、交易市場、文章及球隊短評。">
+  <title>薪水小偷幻想籃球聯賽</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="league-ui.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <a class="brand" href="#"><span class="ball">S$</span><span>薪水小偷幻想籃球聯賽</span></a>
+      <div class="lock">🔒 <b>聯盟內部</b>・請勿轉發</div>
+    </div>
+  </div>
+
+  <nav class="nav" aria-label="主要導覽">
+    <div class="wrap">
+      <a href="#articles">文章</a>
+      <a href="#trade-market">交易市場</a>
+      <a href="#power-rankings">戰力排名</a>
+      <a href="#espn-standings">ESPN 戰績</a>
+      <a href="#team-commentary">球隊短評</a>
+      <a href="#x-updates">X 動態</a>
+      <a href="#resources">參考資料</a>
+    </div>
+  </nav>
+
+  <header class="week-hero">
+    <div class="wrap">
+      <div class="week-intro-grid">
+        <div>
+          <div class="week-kicker">本週焦點 · 第 5 週 <span>Marx · 2026-11-17</span></div>
+          <h1>第五週前瞻：邊隊搵到第五項，邊隊就有得贏</h1>
+          <p class="week-lead">六場有四場估 5–4：Siu 要守助攻，Kwing 要守三分，Leo 就可能要靠幾次偷波過關。</p>
+          <a class="week-jump" href="#articles">瀏覽聯盟文章 →</a>
+          <a class="week-jump" href="#espn-standings">查看最新戰績 →</a>
+        </div>
+        <aside class="week-focus" aria-label="三大看點">
+          <div><span>全勝挑戰</span><strong>Ching vs Marco</strong></div>
+          <div><span>三分拉鋸</span><strong>Kwing vs Koby</strong></div>
+          <div><span>第五項</span><strong>Leo vs Karson</strong></div>
+        </aside>
+      </div>
+
+      <details class="week-preview-list">
+        <summary>第五週六場預測速覽<span>展開比分及重點</span></summary>
+        <div class="week-fixtures">
+          <details class="week-fixture"><summary><span>Siu vs Marx</span><strong>Siu 5–4 Marx</strong><small>展開重點 ＋</small></summary><div class="week-analysis">助攻差距細，可能就係第五項。</div></details>
+          <details class="week-fixture"><summary><span>Kwing vs Koby</span><strong>Kwing 5–4 Koby</strong><small>展開重點 ＋</small></summary><div class="week-analysis">三分同助攻都好近。</div></details>
+          <details class="week-fixture"><summary><span>Leo vs Karson</span><strong>Leo 5–4 Karson</strong><small>展開重點 ＋</small></summary><div class="week-analysis">偷波有機會決勝。</div></details>
+          <details class="week-fixture"><summary><span>Ching vs Marco</span><strong>Ching 7–2 Marco</strong><small>展開重點 ＋</small></summary><div class="week-analysis">Ching 有較多估計可用場次。</div></details>
+          <details class="week-fixture"><summary><span>Jacky vs Carlos</span><strong>Jacky 6–3 Carlos</strong><small>展開重點 ＋</small></summary><div class="week-analysis">封阻基準差唔夠兩個。</div></details>
+          <details class="week-fixture"><summary><span>Josh vs Gao</span><strong>Gao 5–4 Josh</strong><small>展開重點 ＋</small></summary><div class="week-analysis">Gao 冇 Curry，仍可靠深度。</div></details>
+        </div>
+        <p class="week-disclaimer">ChatGPT 原始預測於 2026-11-17（香港日期）定稿。會員投票於星期二 18:00（香港時間）鎖定。</p>
+      </details>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section-block" id="articles">
+      <div class="section-head">
+        <div><h2>文章</h2><p>最新 8 篇聯盟文章，可按分類篩選。</p></div>
+      </div>
+      <div class="tabs" id="article-tabs">
+        <button class="tab active" data-filter="all">全部</button>
+        <button class="tab" data-filter="每週前瞻">每週前瞻</button>
+        <button class="tab" data-filter="每週戰報">每週戰報</button>
+        <button class="tab" data-filter="聯盟專題">聯盟專題</button>
+      </div>
+      <div class="articles-grid" id="articles-grid"></div>
+    </section>
+
+    <section class="section-block" id="trade-market">
+      <div class="portal-shell">
+        <div class="section-head">
+          <div><h2>交易市場</h2><p>集中展示各隊交易意向的資訊板：快速了解誰在出售、誰在尋求補強。</p></div>
+        </div>
+        <div class="portal-note">暫未收到放售或收購名單。想登記交易意向，請將球員及目標回報傳給 Marx。</div>
+        <div class="trade-grid">
+          <article class="trade-card"><span class="trade-label">可交易</span><h3>出售名單</h3><p>準備讓出的球員會顯示在此，包括可接受的回報方向。</p></article>
+          <article class="trade-card"><span class="trade-label">收購目標</span><h3>需求名單</h3><p>各隊想補強的球員類型、位置或具體目標會顯示在此。</p></article>
+        </div>
+        <div class="trade-history">
+          <span class="trade-label">已完成交易</span>
+          <h3>交易歷史</h3>
+          <div id="trade-history-list" class="empty-state">暫時未有已完成交易。聯盟確認交易後會顯示在這裡。</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block" id="power-rankings">
+      <div class="section-head">
+        <div><h2>戰力排名</h2><p>三位資深領隊的獨立排名；每週更新。</p></div>
+        <span class="trade-label">每週更新</span>
+      </div>
+      <div class="rank-grid">
+        <article class="rank-card"><span class="trade-label">Marx</span><h3>Marx 的排名</h3><ol><li>Gao</li><li>Jacky</li><li>Leo</li><li>Siu</li><li>Marco</li><li>Carlos</li><li>Marx</li><li>Koby</li><li>Kwing</li><li>Ching</li><li>Karson</li><li>Josh</li></ol></article>
+        <article class="rank-card"><span class="trade-label">Marco</span><h3>Marco 的排名</h3><ol><li>Gao</li><li>Jacky</li><li>Leo</li><li>Siu</li><li>Marx</li><li>Marco</li><li>Ching</li><li>Kwing</li><li>Carlos</li><li>Koby</li><li>Karson</li><li>Josh</li></ol></article>
+        <article class="rank-card"><span class="trade-label">Leo</span><h3>Leo 的排名</h3><ol><li>Gao</li><li>Siu</li><li>Jacky</li><li>Leo</li><li>Kwing</li><li>Koby</li><li>Marco</li><li>Marx</li><li>Karson</li><li>Ching</li><li>Josh</li><li>Carlos</li></ol></article>
+      </div>
+    </section>
+
+    <section class="section-block" id="espn-standings">
+      <div class="section-head">
+        <div><h2>ESPN 戰績</h2><p>聯盟目前排名及勝負紀錄；透過 Vercel `/api/standings` 載入。</p></div>
+        <span class="trade-label">ESPN SYNC</span>
+      </div>
+      <div class="standings-shell" id="standings-list">
+        <div class="standing-row"><span>—</span><b>載入聯盟戰績中…</b><span></span><span></span></div>
+      </div>
+    </section>
+
+    <section class="section-block" id="team-commentary">
+      <div class="section-head">
+        <div><h2>球隊短評</h2><p>Marco、Leo、Marx 各自一個重點。</p></div>
+        <span class="trade-label">12 TEAMS</span>
+      </div>
+      <div class="commentary-grid">
+        <article class="comment-card"><h3>Miserable Medic</h3><ul><li><b>Marco：</b>全能但防守核心未明，活躍度足以保住季後賽。</li><li><b>Leo：</b>數據樣樣有但未必頂尖，Giannis 很有氣氛。</li><li><b>Marx：</b>星味高但健康與 category identity 是最大考驗。</li></ul></article>
+        <article class="comment-card"><h3>Chill G</h3><ul><li><b>Marco：</b>強 stocks、稍欠後衛數據，交易及 waiver 可補足。</li><li><b>Leo：</b>Flagg 加防守底子強，交易後可更完整。</li><li><b>Marx：</b>封阻溢價換成外圍火力，是升 Tier 1 的鑰匙。</li></ul></article>
+        <article class="comment-card"><h3>The King Hali is Back</h3><ul><li><b>Marco：</b>極端 guard team，搶 steals 是擊敗他的捷徑。</li><li><b>Leo：</b>Hali 回歸，後衛核心一如既往。</li><li><b>Marx：</b>五項火力強，但內線短板會被針對。</li></ul></article>
+        <article class="comment-card"><h3>Love dlwlrma</h3><ul><li><b>Marco：</b>每項都中游，未必足以贏週對戰。</li><li><b>Leo：</b>三分翼隊，觀察 Tatum 與 Ball 狀況。</li><li><b>Marx：</b>深度穩但缺少真正壓倒性的強項。</li></ul></article>
+        <article class="comment-card"><h3>放假中</h3><ul><li><b>Marco：</b>頭五很強，應可舒服進季後賽。</li><li><b>Leo：</b>Jokic carry，五項基礎很硬。</li><li><b>Marx：</b>全聯盟最穩定的爭冠隊之一。</li></ul></article>
+        <article class="comment-card"><h3>看我順風反盤</h3><ul><li><b>Marco：</b>好球員太多，傷病以外難想像怎會輸。</li><li><b>Leo：</b>Ware、Eddy 有時間的話全聯盟都麻煩。</li><li><b>Marx：</b>頂級進攻底盤，健康決定冠軍上限。</li></ul></article>
+        <article class="comment-card"><h3>Loopy</h3><ul><li><b>Marco：</b>Kawhi 打超過 60 場就不會包尾。</li><li><b>Leo：</b>Hospital trio 加上活躍度疑問。</li><li><b>Marx：</b>名氣夠，但可用性與後場深度不足。</li></ul></article>
+        <article class="comment-card"><h3>FirstTwoPicksDownAgain</h3><ul><li><b>Marco：</b>中等球員夠多，活躍就可做邊緣隊。</li><li><b>Leo：</b>AFK 組合，0 分。</li><li><b>Marx：</b>每日 pickup 的 league 會放大管理風險。</li></ul></article>
+        <article class="comment-card"><h3>DTD 🏥🚑</h3><ul><li><b>Marco：</b>上限冠軍、下限旋轉木馬。</li><li><b>Leo：</b>高風險賭博隊，健康時 ceiling 最高。</li><li><b>Marx：</b>健康版本 Tier 1–2，常態可能變 streaming 隊。</li></ul></article>
+        <article class="comment-card"><h3>Pizza Pepperoni</h3><ul><li><b>Marco：</b>大個子隊，guard stats 有疑問。</li><li><b>Leo：</b>blocks、rebounds 有保證，Harden/Fox 補數據。</li><li><b>Marx：</b>Wemby 核心，健康就有爭冠實力。</li></ul></article>
+        <article class="comment-card"><h3>Crazy Big Four</h3><ul><li><b>Marco：</b>較差版 Kwing，但 stocks 更好。</li><li><b>Leo：</b>三人組扎實，其餘陣容偏中等。</li><li><b>Marx：</b>前場有料，但新秀和傷病令定位未穩。</li></ul></article>
+        <article class="comment-card"><h3>Jeng2</h3><ul><li><b>Marco：</b>有限資源下選得好，可每週競爭。</li><li><b>Leo：</b>Dame、J-Dub、Maxey、Barnes 的變化是關鍵。</li><li><b>Marx：</b>需要核心打出頂級表現，才補到選秀資源差距。</li></ul></article>
+      </div>
+    </section>
+
+    <section class="section-block" id="x-updates">
+      <div class="section-head">
+        <div><h2>X 即時動態</h2><p>追蹤 @UnderdogNBA 的最新公開名單消息及 NBA 動態。</p></div>
+        <a class="x-link" href="https://x.com/UnderdogNBA" target="_blank" rel="noopener noreferrer">在 X 開啟 →</a>
+      </div>
+      <div class="portal-note">點擊右上方連結直接查看 <a href="https://x.com/UnderdogNBA" target="_blank" rel="noopener noreferrer" style="color:var(--lime);font-weight:700">@UnderdogNBA</a> 最新先發陣容與傷兵報告。</div>
+    </section>
+
+    <section class="section-block" id="resources">
+      <div class="section-head">
+        <div><h2>參考資料</h2><p>可靠的幻想籃球新聞、分析及排名。</p></div>
+        <span class="trade-label">持續更新</span>
+      </div>
+      <div class="source-grid">
+        <article class="source-card"><span class="trade-label">排名與建議</span><h3>FantasyPros</h3><p>免費文章、選秀建議、waiver wire 內容及多來源排名。</p><div class="latest-source"><b>最新推薦</b>Top 5 Tips to Dominate Your 2026 Fantasy Basketball Draft</div><a href="https://www.fantasypros.com/content/nba/" target="_blank" rel="noopener noreferrer">閱讀最新 FantasyPros 文章</a></article>
+        <article class="source-card"><span class="trade-label">每日排名</span><h3>Hashtag Basketball</h3><p>可免費查看每日更新的當季及 rest-of-season 幻想籃球排名。</p><div class="latest-source"><b>最新內容</b>每日更新的 Fantasy Basketball Rankings／Rest-of-Season 排名</div><a href="https://hashtagbasketball.com/fantasy-basketball-rankings" target="_blank" rel="noopener noreferrer">查看最新排名</a></article>
+        <article class="source-card"><span class="trade-label">新聞與分析</span><h3>NBC Sports／Rotoworld</h3><p>免費的球員新聞、傷患追蹤、策略文章與球季內容。</p><div class="latest-source"><b>最新推薦</b>Rotoworld Fantasy Basketball Draft Central 2026</div><a href="https://www.nbcsports.com/fantasy/basketball/news/rotoworld-fantasy-basketball-draft-central-2026-rankings-strategy-sleepers-and-more" target="_blank" rel="noopener noreferrer">閱讀最新文章</a></article>
+        <article class="source-card"><span class="trade-label">數據與消息</span><h3>RotoWire</h3><p>提供最新文章及部分可免費閱讀的幻想籃球新聞與分析。</p><div class="latest-source"><b>最新推薦</b>Fantasy Basketball Guard Sleepers, Breakouts &amp; Busts for 2026-27 Drafts</div><a href="https://www.rotowire.com/basketball/" target="_blank" rel="noopener noreferrer">閱讀最新 RotoWire 文章</a></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>薪水小偷幻想籃球聯賽</span>
+      <span>只供聯盟成員參考・2026</span>
+    </div>
+  </footer>
+
+  <script>
+    const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    let articles = [];
+
+    function renderArticles(filter) {
+      const grid = document.querySelector('#articles-grid');
+      const list = filter === 'all' ? articles : articles.filter(a => a.label === filter);
+      grid.innerHTML = [invalid URL](a => `
+        <article class="post">
+          <span class="tag">${esc(a.label)}</span>
+          <h3>${esc(a.title)}</h3>
+          <p>${esc(a.summary)}</p>
+          <div class="meta"><span>${esc([invalid URL])}</span><span>${esc([invalid URL] || 'Marx')}</span></div>
+        </article>
+      `).join('');
+    }
+
+    fetch('articles.json').then(r => r.json()).then(d => {
+      articles = d.articles || [];
+      renderArticles('all');
+    }).catch(() => {});
+
+    document.querySelectorAll('#article-tabs .tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#article-tabs .tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderArticles(btn.dataset.filter);
+      });
+    });
+
+    fetch('/api/standings').then(r => r.ok ? r.json() : Promise.reject()).then(data => {
+      const rows = data.standings || [];
+      const head = '<div class="standing-row head"><span>#</span><span>球隊</span><span style="text-align:right">勝–負–和</span><span class="standing-pct">勝率</span></div>';
+      document.querySelector('#standings-list').innerHTML = head + [invalid URL](row => `
+        <div class="standing-row">
+          <span>${esc(row.rank)}</span>
+          <b>${esc([invalid URL]_name)}</b>
+          <span class="standing-record">${esc(row.wins)}–${esc(row.losses)}–${esc(row.ties)}</span>
+          <span class="standing-pct">${esc(row.win_percentage)}</span>
+        </div>
+      `).join('');
+    }).catch(() => {
+      document.querySelector('#standings-list').innerHTML = '<div class="standing-row"><span>—</span><b>部署到 Vercel 後將自動載入戰績</b><span></span><span></span></div>';
+    });
+
+    fetch('/api/trades').then(r => r.ok ? r.json() : Promise.reject()).then(data => {
+      const trades = data.trades || [];
+      if (!trades.length) return;
+      const el = document.querySelector('#trade-history-list');
+      el.className = '';
+      el.innerHTML = [invalid URL](t => `<div class="history-item"><strong>${esc(t.title)}</strong><span>${esc(t.summary || '')}${t.completed_at ? ' ・ ' + esc(t.completed_at) : ''}</span></div>`).join('');
+    }).catch(() => {});
+  </script>
+</body>
+</html>
