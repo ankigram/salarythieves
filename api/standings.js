@@ -1,20 +1,58 @@
-export default function handler(req, res) {
-  res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate');
-  res.status(200).json({
-    updated_at: '2026-11-17',
-    standings: [
-      { rank: 1, team_name: '看我順風反盤 (Gao)', wins: 24, losses: 12, ties: 0, win_percentage: '.667' },
-      { rank: 2, team_name: '放假中 (Jacky)', wins: 23, losses: 13, ties: 0, win_percentage: '.639' },
-      { rank: 3, team_name: 'Pizza Pepperoni (Siu)', wins: 22, losses: 14, ties: 0, win_percentage: '.611' },
-      { rank: 4, team_name: 'The King Hali is Back (Leo)', wins: 21, losses: 15, ties: 0, win_percentage: '.583' },
-      { rank: 5, team_name: 'Chill G (Marx)', wins: 19, losses: 17, ties: 0, win_percentage: '.528' },
-      { rank: 6, team_name: 'Love dlwlrma (Ching)', wins: 19, losses: 17, ties: 0, win_percentage: '.528' },
-      { rank: 7, team_name: 'Miserable Medic (Marco)', wins: 18, losses: 18, ties: 0, win_percentage: '.500' },
-      { rank: 8, team_name: 'Jeng2 (Kwing)', wins: 17, losses: 19, ties: 0, win_percentage: '.472' },
-      { rank: 9, team_name: 'Crazy Big Four (Koby)', wins: 16, losses: 20, ties: 0, win_percentage: '.444' },
-      { rank: 10, team_name: 'FirstTwoPicksDownAgain (Carlos)', wins: 14, losses: 22, ties: 0, win_percentage: '.389' },
-      { rank: 11, team_name: 'DTD (Karson)', wins: 12, losses: 24, ties: 0, win_percentage: '.333' },
-      { rank: 12, team_name: 'Loopy (Josh)', wins: 11, losses: 25, ties: 0, win_percentage: '.306' }
-    ]
-  });
+export default async function handler(req, res) {
+  const leagueId = process.env.ESPN_LEAGUE_ID;
+  const season = process.env.ESPN_SEASON || '2027';
+  const espnS2 = process.env.ESPN_S2 || '';
+  const swid = process.env.ESPN_SWID || '';
+
+  if (!leagueId) {
+    return res.status(500).json({ error: 'Missing ESPN_LEAGUE_ID environment variable' });
+  }
+
+  const url = `https://lm-api-reads.fantasy.espn.com/apis/v3/games/fba/seasons/${season}/segments/0/leagues/${leagueId}?view=mTeam&view=mStandings`;
+  const headers = { Accept: 'application/json' };
+  if (espnS2 && swid) {
+    headers.Cookie = `espn_s2=${espnS2}; SWID=${swid}`;
+  }
+
+  try {
+    const response = await fetch(url, { headers });
+    if (!response.ok) {
+      return res.status(response.status).json({ error: `ESPN API returned ${response.status}` });
+    }
+    const data = await response.json();
+    const teams = data.teams || [];
+
+    const standings = [];
+    for (const item of teams) {
+      const { id, abbrev, playoffSeed, rankCalculatedFinal, record } = item;
+      const teamName = item['name'] || `${item['location'] || ''} ${item['nickname'] || ''}`.trim() || abbrev || `Team ${id}`;
+      const overall = (record && record.overall) || {};
+      const wins = overall.wins ?? 0;
+      const losses = overall.losses ?? 0;
+      const ties = overall.ties ?? 0;
+      const pct = typeof overall.percentage === 'number'
+        ? overall.percentage.toFixed(3).replace(/^0/, '')
+        : '.000';
+
+      standings.push({
+        rank: rankCalculatedFinal || playoffSeed || 99,
+        team_name: teamName,
+        wins,
+        losses,
+        ties,
+        win_percentage: pct
+      });
+    }
+
+    standings.sort((a, b) => a.rank - b.rank);
+
+    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=300');
+    return res.status(200).json({
+      updated_at: new Date().toISOString(),
+      scoring_period: data.scoringPeriodId || null,
+      standings
+    });
+  } catch (err) {
+    return res.status(500).json({ error: 'Failed to fetch ESPN standings', detail: err.message });
+  }
 }
