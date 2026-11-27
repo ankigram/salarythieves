@@ -166,21 +166,23 @@
     </div>
   </footer>
 
-  <script>
+    <script>
     const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     let articles = [];
 
     function renderArticles(filter) {
       const grid = document.querySelector('#articles-grid');
-      const list = filter === 'all' ? articles : articles.filter(a => a.label === filter);
-      grid.innerHTML = [invalid URL](a => `
-        <article class="post">
-          <span class="tag">${esc(a.label)}</span>
-          <h3>${esc(a.title)}</h3>
-          <p>${esc(a.summary)}</p>
-          <div class="meta"><span>${esc([invalid URL])}</span><span>${esc([invalid URL] || 'Marx')}</span></div>
-        </article>
-      `).join('');
+      const filtered = filter === 'all' ? articles : articles.filter(item => item['label'] === filter);
+      let html = '';
+      for (const item of filtered) {
+        html += `<article class="post">
+          <span class="tag">${esc(item['label'])}</span>
+          <h3>${esc(item['title'])}</h3>
+          <p>${esc(item['summary'])}</p>
+          <div class="meta"><span>${esc(item['date'])}</span><span>${esc(item['author'] || 'Marx')}</span></div>
+        </article>`;
+      }
+      grid.innerHTML = html;
     }
 
     fetch('articles.json').then(r => r.json()).then(d => {
@@ -195,6 +197,47 @@
         renderArticles(btn.dataset.filter);
       });
     });
+
+    async function refreshLeagueData() {
+      try {
+        const res = await fetch('/api/standings', { cache: 'no-store' });
+        if (!res.ok) throw new Error(res.status);
+        const data = await res.json();
+        const rows = data.standings || [];
+        let html = '<div class="standing-row head"><span>#</span><span>球隊</span><span style="text-align:right">勝–負–和</span><span class="standing-pct">勝率</span></div>';
+        for (const row of rows) {
+          html += `<div class="standing-row">
+            <span>${esc(row['rank'])}</span>
+            <b>${esc(row['team_name'])}</b>
+            <span class="standing-record">${esc(row['wins'])}–${esc(row['losses'])}–${esc(row['ties'])}</span>
+            <span class="standing-pct">${esc(row['win_percentage'])}</span>
+          </div>`;
+        }
+        document.querySelector('#standings-list').innerHTML = html;
+      } catch (err) {
+        document.querySelector('#standings-list').innerHTML = `<div class="standing-row"><span>—</span><b>暫未能載入戰績 (${esc(err.message)})</b><span></span><span></span></div>`;
+      }
+
+      try {
+        const res = await fetch('/api/trades', { cache: 'no-store' });
+        if (!res.ok) return;
+        const data = await res.json();
+        const trades = data.trades || [];
+        if (!trades.length) return;
+        const el = document.querySelector('#trade-history-list');
+        el.className = '';
+        let html = '';
+        for (const t of trades) {
+          html += `<div class="history-item"><strong>${esc(t['title'])}</strong><span>${esc(t['summary'] || '')}${t['completed_at'] ? ' ・ ' + esc(t['completed_at']) : ''}</span></div>`;
+        }
+        el.innerHTML = html;
+      } catch {}
+    }
+
+    refreshLeagueData();
+    setInterval(refreshLeagueData, 60000);
+  </script>
+
 
     fetch('/api/standings').then(r => r.ok ? r.json() : Promise.reject()).then(data => {
       const rows = data.standings || [];
