@@ -1,0 +1,60 @@
+{
+  "articles": [
+    {
+      "label": "每週前瞻",
+      "title": "第五週前瞻：邊隊搵到第五項，邊隊就有得贏",
+      "summary": "六場有四場估 5–4：Siu 要守助攻，Kwing 要守三分，Leo 就可能要靠幾次偷波過關。",
+      "date": "2026-11-17",
+      "author": "Marx"
+    },
+    {
+      "label": "每週戰報",
+      "title": "第四週賽後：Kwing 打破共識，Jacky 一分推到 8–1",
+      "summary": "Kwing 贏 Marx 118 分，Carlos 靠防守同助攻打低 Gao，Jacky 就憑得分項一分險勝，將比分推到 8–1。",
+      "date": "2026-11-17",
+      "author": "Marx"
+    },
+    {
+      "label": "每週前瞻",
+      "title": "第四週前瞻：兩場對四場，邊隊最識用手上嗰幾場？",
+      "summary": "Marx 今週有賽程優勢，Ching 同 Koby 的全勝對決卻只估到 5–4；另外幾場，可能只差一位主力多打一場。",
+      "date": "2026-11-10",
+      "author": "Marx"
+    },
+    {
+      "label": "每週戰報",
+      "title": "第三週賽後：Leo 贏火力戰，Gao 一個封阻過關",
+      "summary": "Leo 以 5–4 擊敗 Marx，Ching 少得 100 分照贏六項，Carlos 則靠命中率同助攻，打出一場 6–3。",
+      "date": "2026-11-10",
+      "author": "Marx"
+    },
+    {
+      "label": "聯盟專題",
+      "title": "如果嗰日撳咗個掣：薪水小偷聯賽十大 What If",
+      "summary": "十個關鍵決定、十二位領隊：由最後一日收起球員，到選秀、交易同季後賽，倒帶睇吓聯賽歷史可以點樣改寫。",
+      "date": "2026-11-08",
+      "author": "Marx"
+    },
+    {
+      "label": "每週前瞻",
+      "title": "第三週前瞻：唔只睇有幾場，仲要睇排唔排得落",
+      "summary": "密集賽程唔等於實際可用場次。六場全部窄取 5–4，逐場拆解第五項、傷兵假設同反勝條件。",
+      "date": "2026-11-03",
+      "author": "Marx"
+    },
+    {
+      "label": "每週戰報",
+      "title": "第二週回顧：兩個模型一齊撞板",
+      "summary": "ChatGPT 同 Gemini 齊齊兩中六；Ching、Siu、Koby、Karson 贏喺邊？逐場檢討估錯嘅類別同勝負路線。",
+      "date": "2026-11-03",
+      "author": "Marx"
+    },
+    {
+      "label": "聯盟專題",
+      "title": "如果薪水小偷聯賽係 NBA，邊隊最似你？",
+      "summary": "Leo 似 Celtics，Marx 似 Morey Rockets，Kwing 似 Grit and Grind Grizzlies？由封王、交易到傷患，12 位領隊各有自己的 NBA 劇本。",
+      "date": "2026-11-02",
+      "author": "Marx"
+    }
+  ]
+}
